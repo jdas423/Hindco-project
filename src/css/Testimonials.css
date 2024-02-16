@@ -1,0 +1,32 @@
+.testimonials{
+    width:100%;
+    height: fit-content;
+    position: relative;
+}
+
+.slide-1,.slide-2{
+    /* width: 70%; */
+    height: fit-content;
+    display: flex;
+    justify-content: space-around;
+}
+
+.test-1,.test-2,.test-3,.test-4{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+
+.avatar img{
+    width:40px;
+    height: 40px;
+    
+}
+
+.avatar{
+    width: fit-content;
+    height: fit-content;
+    border-radius: 30px;
+}
+
