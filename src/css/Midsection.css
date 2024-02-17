@@ -30,6 +30,7 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
   overflow: visible;
+  margin-bottom: 60px;
 }
 
 .grid > div {
@@ -194,7 +195,7 @@
     font-size: 15px !important;
   }
 
-  .content {
+  .content,.name {
     font-size: 13px !important;
     margin-top: 15px !important;
   }
@@ -285,6 +286,7 @@
 .grid-mob .img-container:hover {
   animation: anim2 1s ease-in-out;
   transform: scale(1.03);
+  overflow: hidden;
 }
 
 @keyframes anim1 {
