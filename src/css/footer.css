@@ -1,0 +1,129 @@
+.footer{
+    width: 100%;
+    background: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 0;
+}
+
+.footer-wrap{
+    width: 100%;
+    max-width:1100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+
+
+.second-box,.second-box-top,.second-box-bottom, .second-box ul, .first-box{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.first-box{
+    width:270px;
+    margin: 30px 28px 0 65px;
+    
+}
+
+.first-box h2,.second-box h2{
+    font-size: 25px;
+    margin-bottom: 10px;
+    color:var(--tertiary-color);
+}
+
+.first-box p{
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color:var(--tertiary-color);
+}
+
+.first-box .footer-btn button {
+    background: transparent;
+    padding: 5px 30px;
+    border:2px solid var(--secondary-color);
+    color:var(--secondary-color);
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.second-box,.third-box{
+    width: 300px;
+    margin: 30px 30px 0 30px;
+}
+
+.second-box ul,.third-box-h{
+    margin-right: 0;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 25px;
+    color: var(--tertiary-color);
+}
+.second-box li, .third-box li{
+    list-style-type: none;
+    width: 100%;
+    font-size: 1rem;
+    margin: 0 5px 5px 5px;
+    color: var(--tertiary-color);
+}
+
+
+.second-box>div{
+    width:100%;
+}
+
+.social-icons a{
+  display: block;
+  color: var(--tertiary-color);
+}
+
+
+.copyright{
+    margin:50px 0 10px 0;
+}
+
+.copyright p{
+    color: var(--tertiary-color);
+    font-size: 1rem;
+}
+
+.third-box ul{
+    margin-right: 0;
+    justify-content: flex-start;
+}
+
+.third-box li{
+    width:fit-content;
+    margin-right: 13px;
+}
+
+.footer svg:hover{
+    fill:var(--primary-color);
+    background: var(--secondary-color);
+}
+
+.footer-btn button:hover{
+    color:var(--primary-color);
+    border-color: var(--primary-color);
+    background: var(--secondary-color);
+}
+
+@media screen and (max-width: 900px) {
+
+    .footer h2{
+        font-size: 16px !important;
+    }
+     .footer li, .footer p{
+        font-size: 13px !important;
+     }
+
+     .footer svg{
+        font-size: 18px !important;
+     }
+}

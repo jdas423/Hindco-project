@@ -115,7 +115,7 @@
   color: var(--primary-color);
 }
 
-.btn-1:hover {
+.btn-1:hover{
   background: var(--primary-color);
   color: var(--secondary-color);
   border-color: var(--primary-color);
