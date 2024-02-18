@@ -55,7 +55,7 @@
 
 .second-box,.third-box{
     width: 300px;
-    margin: 30px 30px 0 60px;
+    margin: 30px 30px 0 30px;
 }
 
 .second-box ul,.third-box-h{
@@ -125,5 +125,9 @@
 
      .footer svg{
         font-size: 18px !important;
+     }
+
+     .second-box, .third-box{
+         margin-left:70px !important;
      }
 }
