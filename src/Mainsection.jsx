@@ -2,28 +2,64 @@ import "./css/Mainsection.css";
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from '@mui/icons-material/Close';
-import { useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export default function Mainsection() {
     const navOptions= useRef(null)
     const closeIcon= useRef(null)
     const hamIcon=useRef(null)
+    const navbar=useRef(null)
+    const logo=useRef(null)
+    
 
-    const handleClick1 = () => {
+     useEffect(()=>{
+      let anchorArr=document.querySelectorAll("#navbar a");
+      const observer=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+            if(!entry.isIntersecting){ 
+              navbar.current.style.backgroundColor="#e9e1e1";
+              navbar.current.style.opacity=0.8;
+              anchorArr.forEach(ele=>{
+                     ele.style.color="#363232";
+              })
+              logo.current.style.color="#363232";
+              navOptions.current.classList.add("intersection");
+            }
+            else{
+              navbar.current.style.backgroundColor="#363232";
+              navbar.current.style.opacity=0.8;
+              anchorArr.forEach(ele=>{
+                     ele.style.color="#e9e1e1";
+              })
+              logo.current.style.color="#e9e1e1";
+              navOptions.current.classList.remove("intersection");
+            }
+
+        });
+  })
+  
+         observer.observe(document.querySelector(".main-sec"));
+
+         return ()=>observer.disconnect();
+     },[])
+    
+   const handleClick1 = useCallback(() => {
         navOptions.current.style.display="block";
         hamIcon.current.style.display="none";
         closeIcon.current.style.display="block";
-    }
+    },[])
  
-    const handleClick2 = () => {
+    const handleClick2 = useCallback(() => {
         navOptions.current.style.display="none";
         hamIcon.current.style.display="block";
         closeIcon.current.style.display="none";
-    }
+    },[])
+
+   
    
     return (
     <main>
-      <nav>
+      <nav id="navbar"  ref={navbar}>
         <div className="close-icon" onClick={handleClick2} ref={closeIcon}>
           <IconButton
             size="large"
@@ -46,20 +82,20 @@ export default function Mainsection() {
             <MenuIcon />
           </IconButton>
         </div>
-        <div className="logo">Perils</div>
+        <div className="logo"  ref={logo}>Perils</div>
         <div className="nav-options" ref={navOptions}>
           <ul>  
             <li>
               <a href="#">Lorem</a>
             </li>
             <li>
-              <a href="#">Ipsum</a>
+              <a href="#grid-container">Ipsum</a>
             </li>
             <li>
-              <a href="#">Err</a>
+              <a href="#testimonials">Err</a>
             </li>
             <li>
-              <a href="#">Random</a>
+              <a href="#footer">Random</a>
             </li>
           </ul>
         </div>

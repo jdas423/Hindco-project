@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useCallback,useMemo } from "react"
 import avatar1 from "./assets/images/avatar1.jpeg"
 import avatar2 from "./assets/images/avatar2.jpeg"
 import avatar3 from "./assets/images/avatar3.jpeg"
@@ -6,11 +6,11 @@ import avatar4 from  "./assets/images/avatar4.jpeg"
 import "./css/Testimonials.css"
 
 export default function Testimonials(){
-    const imgArr=[avatar1,avatar2,avatar3,avatar4];
-    const len=imgArr.length;
+    const imgArr=useMemo(()=>[avatar1,avatar2,avatar3,avatar4],[]);
+    const len=useMemo(()=>imgArr.length,[]);
 
     useEffect(()=>{
-        setInterval(()=>{
+        const id=setInterval(()=>{
 
             const transitSlide=document.querySelector(".transit")
             const currSlide=document.querySelector(".active");
@@ -55,9 +55,12 @@ export default function Testimonials(){
                 }
             },4000)
         },10000)
+
+
+        return ()=>clearInterval(id);
     },[])
     
-    function genSlides(){
+    const genSlides=useCallback(function(){
         const slides=[]
         let obj1={
             left:"0",top:"0",position:"relative",width:"100%",height:"fit-content",display:"flex",justifyContent:"space-around",transition:"left 0.5s ease-in-out"
@@ -84,9 +87,9 @@ export default function Testimonials(){
         }
 
         return slides;
-    }
+    },[])
    
-    function genIndicators(){
+    const genIndicators=useCallback(function(){
         const indicators=[];
         if(window.innerWidth >= 600){
             for(let i=1;i<=len/2;i++){
@@ -101,12 +104,12 @@ export default function Testimonials(){
             }
         }
         return indicators;
-    }
+    },[])
 
     return(
        
 
-        <div className="testimonials">
+        <div className="testimonials" id="testimonials">
             { genSlides()}
             <div className="indicators">
                 {genIndicators()}

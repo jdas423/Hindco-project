@@ -6,7 +6,7 @@
   import FacebookIcon from '@mui/icons-material/Facebook';
   export default function Footer(){
     return(
-        <footer className="footer">
+        <footer className="footer" id="footer">
            <div className="footer-wrap">
               <Firstbox/>
               <Secondbox/>

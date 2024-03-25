@@ -9,7 +9,7 @@ export default function Midsection() {
         <div>Let's build something great</div>
       </div>
       {window.innerWidth >= 600 ? (
-        <div className="grid-container">
+        <div className="grid-container" id="grid-container">
           <div className="grid">
             <div className="img-container l">
               <div className="img-text">
@@ -141,7 +141,7 @@ function Third() {
 function Mobilemidsec() {
   return (
     <>
-      <div className="grid-container-mob">
+      <div className="grid-container-mob" id="grid-container">
         <div className="grid-mob">
           <div className="img-container l">
             <div className="img-text">
