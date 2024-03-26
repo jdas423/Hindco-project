@@ -14,35 +14,40 @@ export default function Mainsection() {
 
      useEffect(()=>{
       let anchorArr=document.querySelectorAll("#navbar a");
+      let hamburger=document.querySelector(".hamburger-icon svg");
+      let close=document.querySelector(".close-icon svg");
       const observer=new IntersectionObserver(entries=>{
         entries.forEach(entry=>{
             if(!entry.isIntersecting){ 
               navbar.current.style.backgroundColor="#e9e1e1";
-              navbar.current.style.opacity=0.8;
               anchorArr.forEach(ele=>{
                      ele.style.color="#363232";
               })
               logo.current.style.color="#363232";
               navOptions.current.classList.add("intersection");
+              hamburger.style.fill="#363232";
+              close.style.fill="#363232";
             }
             else{
               navbar.current.style.backgroundColor="#363232";
-              navbar.current.style.opacity=0.8;
               anchorArr.forEach(ele=>{
                      ele.style.color="#e9e1e1";
               })
               logo.current.style.color="#e9e1e1";
               navOptions.current.classList.remove("intersection");
+              hamburger.style.fill="#e9e1e1";
+              close.style.fill="#e9e1e1";
             }
 
-        });
-  })
+        },);
+  },{threshold:0.5})
   
-         observer.observe(document.querySelector(".main-sec"));
+         observer.observe(document.querySelector(".main-container"));
 
          return ()=>observer.disconnect();
      },[])
-    
+
+     
    const handleClick1 = useCallback(() => {
         navOptions.current.style.display="block";
         hamIcon.current.style.display="none";

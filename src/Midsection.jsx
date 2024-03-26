@@ -2,7 +2,56 @@ import "./css/Midsection.css";
 import pic1 from "./assets/images/pic1.jpeg";
 import pic2 from "./assets/images/pic2.jpeg";
 import pic3 from "./assets/images/pic3.jpeg";
+import { useEffect } from "react";
 export default function Midsection() {
+  
+  useEffect(()=>{
+    let img=document.querySelectorAll(".img-container");
+    let firstWrap=document.querySelector(".first-wrapper");
+    let secondWrap=document.querySelector(".second-wrapper");
+    let thirdWrap=document.querySelector(".third-wrapper");
+    const observer1= new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+          if(entry.isIntersecting){
+            img[0].style.transform="translateX(0)";
+            firstWrap.style.transform="translateX(0)";
+          }
+      })
+
+    },{threshold:0})
+
+    const observer2= new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+          if(entry.isIntersecting){
+            img[1].style.transform="translateX(0)";
+            secondWrap.style.transform="translateX(0)";
+          }
+      })
+
+    },{threshold:0})
+
+    const observer3= new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+          if(entry.isIntersecting){
+            img[2].style.transform="translateX(0)";
+            thirdWrap.style.transform="translateX(0)";
+          }
+      })
+
+    },{threshold:0})
+
+    observer1.observe(img[0]);
+    observer1.observe(firstWrap);
+    observer2.observe(img[1]);
+    observer2.observe(secondWrap);
+    observer3.observe(img[2]);
+    observer3.observe(thirdWrap);
+    
+
+  },[])
+
+
+
   return (
     <>
       <div className="build-banner">

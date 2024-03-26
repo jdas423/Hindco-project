@@ -29,7 +29,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  overflow: visible;
+  overflow: hidden;
   margin-bottom: 60px;
 }
 
@@ -168,6 +168,25 @@
   width: 100vw;
   height: 100vw;
 }
+
+
+.l,.second-wrapper{
+  transform: translateX(-80%);
+}
+
+.r,.first-wrapper{
+  transform: translateX(80%);
+}
+
+.third-wrapper{
+  transform: translateX(80%);
+}
+
+.first-wrapper,.second-wrapper,.third-wrapper{
+  transition: all 1s ease-out;
+}
+
+
 @media screen and (max-width: 1000px) {
   .third .content {
     margin-top: 0 !important;
@@ -231,6 +250,7 @@
 .grid-mob .img-container {
   position: relative;
   transition: all 1s ease-out;
+  z-index:2;
 }
 
 .grid .img-text,
@@ -254,10 +274,10 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: var(--primary-color);
+  /* background: #6965658f; */
   opacity: 0.4;
   overflow: hidden;
-  clip-path: circle(98.2% at -31% 9%);
+  /* clip-path: circle(98.2% at -31% 9%); */
   z-index: 5;
   transition: all 1s ease-out;
 }
@@ -268,27 +288,28 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: var(--primary-color);
+  /* background: #6965658f; */
   opacity: 0.4;
   overflow: hidden;
-  clip-path: circle(100% at 125% 100%);
+  /* clip-path: circle(100% at 125% 100%); */
   z-index: 5;
   transition: all 1s ease-out;
 }
 
-.grid .img-container:hover::before,
+/* .grid .img-container:hover::before,
 .grid-mob .img-container:hover::before {
-  animation: anim1 1s ease-in-out;
+  animation: anim1 0.5s ease-in-out;
   transform: scale(10);
-}
+} */
 
 .grid .img-container:hover,
-.grid-mob .img-container:hover {
-  animation: anim2 1s ease-in-out;
-  transform: scale(1.03);
-  overflow: hidden;
+.grid-mob .img-container:hover ,
+.first-wrapper:hover,
+.second-wrapper:hover,
+.third-wrapper:hover{
+  transform:scale(1.02) !important;
 }
-
+/* 
 @keyframes anim1 {
   0% {
     transform: scale(1);
@@ -296,13 +317,13 @@
   100% {
     transform: scale(10);
   }
-}
+} */
 
-@keyframes anim-2 {
+/* @keyframes anim-2 {
   0% {
     transform: scale(1);
   }
   100% {
-    transform: scale(1.03);
+    transform: scale(1.2);
   }
-}
+} */

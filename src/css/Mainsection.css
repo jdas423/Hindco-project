@@ -59,7 +59,7 @@ main a:hover{
 }
 
 .intersection a:hover{
-    border-bottom: 2px solid var(--tertiary-color) !important;
+    border-bottom: 2px solid var(--tertiary-color);
 }
 /* main-sec */
 
