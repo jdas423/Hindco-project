@@ -3,10 +3,15 @@ import avatar1 from "./assets/images/avatar1.jpeg"
 import avatar2 from "./assets/images/avatar2.jpeg"
 import avatar3 from "./assets/images/avatar3.jpeg"
 import avatar4 from  "./assets/images/avatar4.jpeg"
+import avatar5 from "./assets/images/avatar5.jpeg"
+import avatar6 from "./assets/images/avatar6.jpeg"
+import avatar7 from "./assets/images/avatar7.jpeg"
+import avatar8 from "./assets/images/avatar8.jpeg"
 import "./css/Testimonials.css"
+import CreateTestimonial from "./createTestimonials"
 
 export default function Testimonials(){
-    const imgArr=useMemo(()=>[avatar1,avatar2,avatar3,avatar4],[]);
+    const imgArr=useMemo(()=>[avatar1,avatar2,avatar3,avatar4,avatar5,avatar6,avatar7,avatar8],[]);
     const len=useMemo(()=>imgArr.length,[]);
 
     useEffect(()=>{
@@ -107,35 +112,23 @@ export default function Testimonials(){
     },[])
 
     return(
-       
-
+        <>
+        <div className="testimonials-heading">
+            <div className="head-ins">
+                <h1>Testimonials</h1>
+            </div>
+        </div>
         <div className="testimonials" id="testimonials">
             { genSlides()}
             <div className="indicators">
                 {genIndicators()}
             </div>
         </div>
+        
+        </>
+       
+
 
         
-    )
-}
-
-function CreateTestimonial({ind,img}){
-    return(
-
-     <div className={`test-${ind}`}>
-        <div className="avatar">
-            <img src={img} alt="no_avatar" />
-        </div>
-        <div className="test-content">
-            <div className="content">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam neque, a illum esse cumque possimus autem aspernatur, quis provident ipsa dolorum nostrum repellat quo nam accusamus. Possimus excepturi rem vel.
-            </div>
-            <div className="name">
-               Lorem ipsum dolor sit amet.
-            </div>
-        </div>
-     </div>
-
     )
 }

@@ -2,54 +2,76 @@ import "./css/Midsection.css";
 import pic1 from "./assets/images/pic1.jpeg";
 import pic2 from "./assets/images/pic2.jpeg";
 import pic3 from "./assets/images/pic3.jpeg";
-import { useEffect } from "react";
+import pic4 from "./assets/images/pic4.jpeg";
+import pic5 from "./assets/images/pic5.jpeg";
+import pic6 from "./assets/images/pic6.jpeg";
+import pic7 from "./assets/images/pic7.jpeg";
+import pic8 from "./assets/images/pic8.jpeg";
+import { useMemo, useEffect, useState, useCallback } from "react";
+import Mobilemidsec from "./mobilemidsec";
+import First from "./firsttype";
+import Second from "./secondtype";
+import Third from "./thirdtype";
+import { articles } from "./js/articles";
+import { newArticles } from "./js/loadarticles";
+import { generateGridMob } from "./mobilemidsec";
 export default function Midsection() {
+  const [load,setLoad]= useState(false);
+  const [mobWidth,setMobWidth] = useState(false);
+  const imgArr=useMemo(()=>
+  {
+    if(load) return[pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8]
+    else return[pic1,pic2,pic3,pic4,pic5]
+  },[load]);
   
+  const grid=useMemo(()=>
+  {
+    if(load) {
+       if(!mobWidth)  return generateGrid([...articles,...newArticles],imgArr)
+       else return generateGridMob([...articles,...newArticles],imgArr)
+    } 
+    else {
+      if(!mobWidth)  return generateGrid(articles,imgArr)
+      else return generateGridMob(articles,imgArr)
+   } 
+  },[load,mobWidth]);
+  
+  const loadMore= useCallback(()=>{
+      setLoad(true);
+  },[]);
+
+  const loadLess= useCallback(()=>{
+    setLoad(false);
+   },[]);
+  
+   useEffect(()=>{
+    if(window.innerWidth >= 600) setMobWidth(false);
+    else setMobWidth(true);
+},[])
+
   useEffect(()=>{
     let img=document.querySelectorAll(".img-container");
-    let firstWrap=document.querySelector(".first-wrapper");
-    let secondWrap=document.querySelector(".second-wrapper");
-    let thirdWrap=document.querySelector(".third-wrapper");
+    let wrap=document.querySelectorAll(".wrap");
     const observer1= new IntersectionObserver((entries)=>{
       entries.forEach((entry)=>{
           if(entry.isIntersecting){
-            img[0].style.transform="translateX(0)";
-            firstWrap.style.transform="translateX(0)";
+            entry.target.style.transform="translateX(0)";
           }
       })
 
     },{threshold:0})
 
-    const observer2= new IntersectionObserver((entries)=>{
-      entries.forEach((entry)=>{
-          if(entry.isIntersecting){
-            img[1].style.transform="translateX(0)";
-            secondWrap.style.transform="translateX(0)";
-          }
-      })
+   img.forEach((el)=>{
+     observer1.observe(el);
+   })
 
-    },{threshold:0})
+   wrap.forEach((el)=>{
+     observer1.observe(el);
+   })
+   
+    return ()=> observer1.disconnect();
 
-    const observer3= new IntersectionObserver((entries)=>{
-      entries.forEach((entry)=>{
-          if(entry.isIntersecting){
-            img[2].style.transform="translateX(0)";
-            thirdWrap.style.transform="translateX(0)";
-          }
-      })
-
-    },{threshold:0})
-
-    observer1.observe(img[0]);
-    observer1.observe(firstWrap);
-    observer2.observe(img[1]);
-    observer2.observe(secondWrap);
-    observer3.observe(img[2]);
-    observer3.observe(thirdWrap);
-    
-
-  },[])
-
+  },[load,mobWidth])
 
 
   return (
@@ -57,164 +79,78 @@ export default function Midsection() {
       <div className="build-banner">
         <div>Let's build something great</div>
       </div>
-      {window.innerWidth >= 600 ? (
+      {!mobWidth ? (
         <div className="grid-container" id="grid-container">
-          <div className="grid">
-            <div className="img-container l">
-              <div className="img-text">
-                Lorem ipsum dolor sit amet consectetur.
-              </div>
-              <img src={pic1} alt="no_img" />
+            <div className="grid" key="grid">
+                {grid}
             </div>
-            <First />
-            <Second />
-            <div className="img-container r">
-              <div className="img-text">
-                Lorem ipsum dolor sit amet consectetur.
-              </div>
-              <img src={pic2} alt="no_img" />
-            </div>
-            <div className="img-container l">
-              <div className="img-text">
-                Lorem ipsum dolor sit amet consectetur.
-              </div>
-              <img src={pic3} alt="no_img" />
-            </div>
-            <Third />
-          </div>
+          
+            {load && (<div className="load-less" key="load-less">
+              <button onClick={()=>loadLess()}>Load Less</button>
+            </div>)}
+           
+            {!load && (
+                <div className="load-more" key="load-more">
+              <button onClick={()=>loadMore()}>Load More</button>
+            </div> )}
+            
         </div>
       ) : (
-        <Mobilemidsec />
+        <Mobilemidsec load={load} loadMore={loadMore} loadLess={loadLess} grid={grid}/>
       )}
     </>
   );
 }
 
-function First() {
-  return (
-    <div className="first-wrapper">
-      <div className="first">
-        <div className="topic">Random</div>
-        <div className="heading">Lorem ipsum dolor sit amet consectetur.</div>
-        <div className="content">
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident
-            est aliquid eaque suscipit a ea repudiandae accusamus doloribus
-            minima dolores?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-            fugiat enim harum aspernatur aperiam neque eum ea placeat quasi
-            maiores?
-          </p>
-        </div>
-        <div className="btn-1-wrapper">
-          <button className="btn-1">Lorem, ipsum dolor</button>
-        </div>
-        <div className="btn-2-wrapper">
-          <button className="btn-2">Lorem dolor sit amet</button>
-        </div>
-      </div>
-    </div>
-  );
+
+export function generateArticleArr(articles){
+  console.log(articles)
+  return(
+    articles.map((article,ind)=>{
+      console.log(article)
+        if(article.type==="first") return <First key={ind} article={article}/>
+        else if(article.type==="second") return <Second key={ind} article={article}/>
+        else if(article.type==="third") return <Third  key={ind} article={article}/>
+    })
+
+  )
 }
 
-function Second() {
-  return (
-    <div className="second-wrapper">
-      <div className="second">
-        <div className="topic">Random</div>
-        <div className="heading">Lorem ipsum dolor sit amet consectetur.</div>
-        <div className="content">
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident
-            est aliquid eaque suscipit a ea repudiandae accusamus doloribus
-            minima dolores?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-            fugiat enim harum aspernatur aperiam neque eum ea placeat quasi
-            maiores?
-          </p>
-        </div>
-        <div className="btn-1-wrapper">
-          <button className="btn-1">Lorem, ipsum dolor</button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-function Third() {
-  return (
-    <div className="third-wrapper">
-      <div className="third">
-        <div className="topic">Random</div>
-        <div className="heading">Lorem ipsum dolor sit amet consectetur.</div>
-        <div className="content">
-          <div className="sub-topic-1">
-            <div className="sub-heading">Lorem ipsum dolor </div>
-            <div className="sub-content">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum
-              eos obcaecati non totam sequi. Saepe!
+function generateGrid(articles,imgArr){
+      const articleArr=generateArticleArr(articles);
+      console.log(articleArr)
+      return(
+        articleArr.map((articleJSX,ind)=>{
+             if(ind%2){
+                return(
+                  <>
+               {articleJSX}
+              <div className="img-container r" key={`img-container-${ind}`}>
+                <div className="img-text">
+                  {articles[ind].imgText}
+                </div>
+                <img src={imgArr[ind]} alt="no_img" />
+              </div>
+                  </>
+                )
+             }
+             else{
+              return(
+              <>
+              <div className="img-container l" key={`img-container-${ind}`}>
+              <div className="img-text">
+                 {articles[ind].imgText}
+              </div>
+              <img src={imgArr[ind]} alt="no_img" />
             </div>
-          </div>
-          <div className="sub-topic-2">
-            <div className="sub-heading">Lorem ipsum dolor </div>
-            <div className="sub-content">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum
-              eos obcaecati non totam sequi. Saepe!
-            </div>
-          </div>
-          <div className="sub-topic-3">
-            <div className="sub-heading">Lorem ipsum dolor </div>
-            <div className="sub-content">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum
-              eos obcaecati non totam sequi. Saepe!
-            </div>
-          </div>
-          <div className="sub-topic-4">
-            <div className="sub-heading">Lorem ipsum dolor </div>
-            <div className="sub-content">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum
-              eos obcaecati non totam sequi. Saepe!
-            </div>
-          </div>
-        </div>
-        <div className="btn-1">Lorem, ipsum dolor.</div>
-      </div>
-    </div>
-  );
-}
+            {articleJSX}
+              </>
 
-function Mobilemidsec() {
-  return (
-    <>
-      <div className="grid-container-mob" id="grid-container">
-        <div className="grid-mob">
-          <div className="img-container l">
-            <div className="img-text">
-              Lorem ipsum dolor sit amet consectetur.
-            </div>
-            <img src={pic1} alt="no_img" />
-          </div>
-          <First />
-          <div className="img-container r">
-            <div className="img-text">
-              Lorem ipsum dolor sit amet consectetur.
-            </div>
-            <img src={pic2} alt="no_img" />
-          </div>
-          <Second />
-          <div className="img-container l">
-            <div className="img-text">
-              Lorem ipsum dolor sit amet consectetur.
-            </div>
-            <img src={pic3} alt="no_img" />
-          </div>
-          <Third />
-        </div>
-      </div>
-    </>
-  );
+              )
+  
+             }
+        })
+      
+      )
 }

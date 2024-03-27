@@ -83,6 +83,10 @@ main a:hover{
     flex-direction: column;
 }
 
+.main-container:hover{
+   transform: scale(1.05);
+}
+
 .main-flex-cont div{
     width: 100%;
     text-align: center;
